@@ -2,7 +2,7 @@ from fractions import Fraction
 import sys
 import os
 
-# Agrega la carpeta padre (algebra_lineal) al path de Python
+# Agrega la carpeta algebra_lineal al path de Python
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import validaciones as val
@@ -11,6 +11,10 @@ def print_matrix(A):
     for fila in A:
         print([str(x) for x in fila])
     print()
+
+def mostrar_solucion(A, num_vars):
+    # Funcion para detectar si tiene unica, infinitas o sin solucion
+    A = []
 
 def gauss_jordan(A):
     n = len(A)       # número de filas
@@ -34,7 +38,7 @@ def gauss_jordan(A):
         pivote = A[i][i]
         if pivote != 1:
             # Toma la fila i, y divide cada elemento [x] entre el pivote
-            # Traduccion: La fila A[i] va a ser igual a una nueva lista
+            # La fila A[i] va a ser igual a una nueva lista
             # en la cual el elemento x se divide entre el pivote y esta operacion
             # se hace para cada elemento x en la fila A[i]
             A[i] = [x / pivote for x in A[i]]
