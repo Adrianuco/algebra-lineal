@@ -73,7 +73,7 @@ def ingresar_matriz():
 A = ingresar_matriz()
 
 resultado = gauss_jordan(A)
-print("Matriz final (identidad | soluciones):")
+print("Matriz final (identidad | soluciones)")
 print_matrix(resultado)
 
 print("Soluciones:")
