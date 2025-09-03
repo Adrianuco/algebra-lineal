@@ -1,6 +1,15 @@
+from fractions import Fraction
+import sys
+import os
+
+# Agrega la carpeta padre (algebra_lineal) al path de Python
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import validaciones as val
+
 def print_matrix(A):
     for fila in A:
-        print(["{0:8.3f}".format(x) for x in fila])
+        print([str(x) for x in fila])
     print()
 
 def gauss_jordan(A):
@@ -56,15 +65,15 @@ def gauss_jordan(A):
     return A
 
 def ingresar_matriz():
-    n = int(input("Número de filas (ecuaciones): "))
-    m = int(input("Número de columnas (variables): "))
+    n = val.validar_entero_positivo("Número de filas (ecuaciones): ")
+    m = val.validar_entero_positivo("Número de columnas (variables): ")
 
     A = []
     for i in range(n):
         fila = []
         print(f"Ingrese los {m} coeficientes y el término independiente para la fila {i+1}:")
         for j in range(m + 1):
-            valor = float(input(f"  Elemento [{i+1},{j+1}]: "))
+            valor = val.validar_numero(f"  Elemento [{i+1},{j+1}]: ")
             fila.append(valor)
         A.append(fila)
 
