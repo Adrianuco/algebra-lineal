@@ -30,15 +30,8 @@ def mostrar_solucion(A, num_vars):
 
     # Contar pivotes
     pivotes = 0
-    """# j representa la columna a recorrer
-    for j in range(num_vars):
-        # any va a retornar True si encuentra algun elemento que cumpla la condicion
-        # En este caso, se itera sobre las filas i de la columna j para ver si hay algun pivote (1)
-        if any(A[i][j] == 1 for i in range(n)):
-            # En caso de encontrar un pivote, se incrementa el contador
-            pivotes += 1"""
-    
     for i in range(n):
+        # Se recorre la diagonal principal y se cuenta cuántos pivotes (1s) hay
         if A[i][i] == 1:
             pivotes += 1
 
