@@ -20,7 +20,7 @@ def gauss_jordan(A):
     n = len(A)       # número de filas
     m = len(A[0])
 
-    print("Matriz inicial:")
+    print("\nMatriz inicial:")
     print_matrix(A)
 
     for i in range(n):
@@ -31,7 +31,7 @@ def gauss_jordan(A):
             for k in range(i+1, n):
                 if A[k][i] != 0:
                     A[i], A[k] = A[k], A[i]  # intercambio de filas
-                    print(f"Intercambio fila {i+1} con fila {k+1}")
+                    print(f"\n\nIntercambio fila {i+1} con fila {k+1}\n")
                     print_matrix(A)
                     break
         # Convertir pivote en 1
@@ -42,7 +42,7 @@ def gauss_jordan(A):
             # en la cual el elemento x se divide entre el pivote y esta operacion
             # se hace para cada elemento x en la fila A[i]
             A[i] = [x / pivote for x in A[i]]
-            print(f"Normalizamos fila {i+1} (dividimos por {pivote})")
+            print(f"\n\nNormalizamos fila {i+1} (dividimos por {pivote})\n")
             print_matrix(A)
         
         # Hacer ceros en la misma columna (arriba y abajo)
@@ -64,24 +64,29 @@ def gauss_jordan(A):
                     # Con el zip decimos que x es cada elemento de la fila j
                     # Y y es cada elemento de la fila i
                     A[j] = [x + mult * y for x, y in zip(A[j], A[i])]
-                    print(f"Fila {j+1} = Fila {j+1} - ({elemento})*Fila {i+1}")
+                    print(f"\n\nFila {j+1} = Fila {j+1} - ({elemento})*Fila {i+1}\n")
                     print_matrix(A)
     return A
 
 def ingresar_matriz():
-    n = val.validar_entero_positivo("Número de filas (ecuaciones): ")
+    print("\n-- Definir Matriz --")
+    n = val.validar_entero_positivo("\nNúmero de filas (ecuaciones): ")
     m = val.validar_entero_positivo("Número de columnas (variables): ")
 
     A = []
+    print("\n\n-- Ingreso de Datos --")
     for i in range(n):
         fila = []
-        print(f"Ingrese los {m} coeficientes y el término independiente para la fila {i+1}:")
+        print(f"\n\nIngrese los {m} coeficientes y el término independiente para la fila {i+1}:\n")
         for j in range(m + 1):
             valor = val.validar_numero(f"  Elemento [{i+1},{j+1}]: ")
             fila.append(valor)
         A.append(fila)
 
     return A
+
+print("--- METODO DE GAUSS-JORDAN ---\n")
+
 
 A = ingresar_matriz()
 
