@@ -13,14 +13,54 @@ def print_matrix(A):
     print()
 
 def mostrar_solucion(A, num_vars):
-    # Funcion para detectar si tiene unica, infinitas o sin solucion
-    A = []
+    n = len(A)
+
+    # Caso 1: Sin solución
+    for fila in A:
+        # all retorna True si la condicion se cumple para todos los elementos del iterable
+        # Es decir, verifica en esa fila cada elemento (exceptuando al ultimo por el slicing fila[:-1])
+        # Si ese elemento x es igual a 0. En caso de que todos los elementos (excepto el ultimo)
+        # sean 0, all retornara True
+        # Luego se verifica que el ultimo elemento (fila[-1]) sea distinto de 0
+        # Si ambas condiciones se cumplen, significa que tenemos una fila del tipo
+        # [0, 0, 0, ..., 0 | b]
+        if all(x == 0 for x in fila[:-1]) and fila[-1] != 0:
+            print("\nEl sistema no tiene solución (incosistente).")
+            return
+
+    # Contar pivotes
+    pivotes = 0
+    # j representa la columna a recorrer
+    for j in range(num_vars):
+        # any va a retornar True si encuentra algun elemento que cumpla la condicion
+        # En este caso, se itera sobre las filas i de la columna j para ver si hay algun pivote (1)
+        if any(A[i][j] == 1 for i in range(n)):
+            # En caso de encontrar un pivote, se incrementa el contador
+            pivotes += 1
+
+    # Caso 2: Solución única
+    # Se verifica si el numero de pivotes es igual al numero de variables
+    if pivotes == num_vars:
+        # Se crea una lista con las soluciones, que son los ultimos elementos de cada fila
+        solucion = [fila[-1] for fila in A]
+        print("\nEl sistema tiene solución única:\n")
+        # Se imprimen las soluciones
+        for i, val in enumerate(solucion):
+            print(f"x{i+1} = {val}")
+        print()
+        return
+
+    # En caso de que no ocurra ninguno de los casos anteriores,
+    # por descarte, el sistema tiene infinitas soluciones
+    # Caso 3: Infinitas soluciones
+    print("\nEl sistema tiene infinitas soluciones (hay variables libres).")
 
 def gauss_jordan(A):
     n = len(A)       # número de filas
     m = len(A[0])
 
-    print("\nMatriz inicial:")
+    print("\n\n-- Proceso de Gauss-Jordan --")
+    print("\n\nMatriz inicial:\n")
     print_matrix(A)
 
     for i in range(n):
@@ -85,7 +125,7 @@ def ingresar_matriz():
 
     return A
 
-print("--- METODO DE GAUSS-JORDAN ---\n")
+print("\n\n--- METODO DE GAUSS-JORDAN ---\n")
 
 
 A = ingresar_matriz()
@@ -94,6 +134,5 @@ resultado = gauss_jordan(A)
 print("Matriz final (identidad | soluciones)")
 print_matrix(resultado)
 
-print("Soluciones:")
-for i in range(len(resultado)):
-    print(f"x{i+1} = {resultado[i][-1]}")
+print("\n\n-- Resultados --\n")
+mostrar_solucion(resultado, len(A[0]) - 1)
