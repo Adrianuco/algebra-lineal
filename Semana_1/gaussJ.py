@@ -25,17 +25,21 @@ def mostrar_solucion(A, num_vars):
         # Si ambas condiciones se cumplen, significa que tenemos una fila del tipo
         # [0, 0, 0, ..., 0 | b]
         if all(x == 0 for x in fila[:-1]) and fila[-1] != 0:
-            print("\nEl sistema no tiene solución (incosistente).")
+            print("\nEl sistema no tiene solución (incosistente)\n")
             return
 
     # Contar pivotes
     pivotes = 0
-    # j representa la columna a recorrer
+    """# j representa la columna a recorrer
     for j in range(num_vars):
         # any va a retornar True si encuentra algun elemento que cumpla la condicion
         # En este caso, se itera sobre las filas i de la columna j para ver si hay algun pivote (1)
         if any(A[i][j] == 1 for i in range(n)):
             # En caso de encontrar un pivote, se incrementa el contador
+            pivotes += 1"""
+    
+    for i in range(n):
+        if A[i][i] == 1:
             pivotes += 1
 
     # Caso 2: Solución única
@@ -53,7 +57,7 @@ def mostrar_solucion(A, num_vars):
     # En caso de que no ocurra ninguno de los casos anteriores,
     # por descarte, el sistema tiene infinitas soluciones
     # Caso 3: Infinitas soluciones
-    print("\nEl sistema tiene infinitas soluciones (hay variables libres).")
+    print("\nEl sistema tiene infinitas soluciones (hay variables libres)\n")
 
 def gauss_jordan(A):
     n = len(A)       # número de filas
@@ -76,6 +80,9 @@ def gauss_jordan(A):
                     break
         # Convertir pivote en 1
         pivote = A[i][i]
+        if pivote == 0:
+            continue
+
         if pivote != 1:
             # Toma la fila i, y divide cada elemento [x] entre el pivote
             # La fila A[i] va a ser igual a una nueva lista
